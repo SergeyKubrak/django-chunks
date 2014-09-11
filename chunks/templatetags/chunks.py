@@ -29,6 +29,9 @@ class ChunkNode(template.Node):
        self.cache_time = cache_time
     
     def render(self, context):
+        # try to get key name from context
+        if self.key in context:
+            self.key = context[self.key]
         try:
             cache_key = CACHE_PREFIX + self.key
             c = cache.get(cache_key)
